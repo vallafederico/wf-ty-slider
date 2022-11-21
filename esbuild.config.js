@@ -6,14 +6,16 @@ const production = env === "production";
 
 const FILES = {
   entry: ["src/app.js"],
-  out: "build/js",
+  out: "build",
 };
 
 const SETTINGS = {
   bundle: true,
   sourcemap: !production,
-  loader: { ".png": "dataurl" },
-  loader: { ".webp": "dataurl" },
+  loader: {
+    ".png": "dataurl",
+    ".webp": "dataurl",
+  },
 };
 
 /* -- Plugins */
@@ -51,7 +53,8 @@ function serveFile() {
       plugins: PLUGINS,
     }
   ).then((server) => {
-    console.log(`↑ FLOW`);
+    console.log("→ → → ", "https://webflow.com/design/wf-sliderii");
+    console.log("( ", "http://localhost:8000/dev.js", " )");
     //   server.stop();
   });
 }

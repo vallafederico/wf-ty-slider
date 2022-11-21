@@ -2,6 +2,10 @@ lockfileVersion: 5.4
 
 specifiers:
   esbuild: ^0.15.14
+  keen-slider: ^6.8.3
+
+dependencies:
+  keen-slider: 6.8.3
 
 devDependencies:
   esbuild: 0.15.14
@@ -235,3 +239,7 @@ packages:
       esbuild-windows-64: 0.15.14
       esbuild-windows-arm64: 0.15.14
     dev: true
+
+  /keen-slider/6.8.3:
+    resolution: {integrity: sha512-tJFokyUiHAtbGGQHnNMm3MLCpOm+z1JZsaOOMVnzTYAfAqLDT/zI/cE1mf82Bxmp1uHSIeUUkH+EZGzRQrSO/w==}
+    dev: false
