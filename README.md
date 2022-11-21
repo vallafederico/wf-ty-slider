@@ -22,14 +22,14 @@ Optionally, you can define arrows and dots. All this attributes and elements sho
 
 Added as attributes to the container element (`data-slider="container"`).
 
-| Syntax     | Values                  | Description                                              |
-| ---------- | ----------------------- | -------------------------------------------------------- |
-| loop       | true / false            | Boolean toggle, slider looping or not                    |
-| mode       | snap / free / free-snap | Slider snapping                                          |
-| rubberband | true / false            | rubberband animation or not                              |
-| drag       | true / false            | Enable / Disable dragging                                |
-| dragspeed  | number (integer)        | Speed of dragging animation                              |
-| duration   | number (seconds)        | Duration of arrows /dots animation                       |
-| centered   | true / false            | Slides align to left or center                           |
-| perview    | number / 0              | Slides visible per view, if empty or "0" is based on CSS |
-| spacing    | number                  | Slide spacing, like flexbox gap                          |
+| Syntax     | Values                  | Description                                              | Optional |
+| ---------- | ----------------------- | -------------------------------------------------------- | -------- |
+| loop       | true / false            | Boolean toggle, slider looping or not                    | -        |
+| mode       | snap / free / free-snap | Slider snapping                                          | -        |
+| rubberband | true / false            | rubberband animation or not                              | -        |
+| drag       | true / false            | Enable / Disable dragging                                | -        |
+| dragspeed  | number (integer)        | Speed of dragging animation                              | -        |
+| duration   | number (seconds)        | Duration of arrows /dots animation                       | -        |
+| centered   | true / false            | Slides align to left or center                           | -        |
+| perview    | number / 0              | Slides visible per view, if empty or "0" is based on CSS | Optional |
+| spacing    | number                  | Slide spacing, like flexbox gap                          | Optional |
