@@ -22,11 +22,13 @@ Optionally, you can define arrows and dots. All this attributes and elements sho
 
 Added as attributes to the container element (`data-slider="container"`).
 
-| Syntax     | Values                  | Description                           |
-| ---------- | ----------------------- | ------------------------------------- |
-| loop       | true / false            | Boolean toggle, slider looping or not |
-| mode       | snap / free / free-snap | Slider snapping                       |
-| rubberband | true / false            | rubberband animation or not           |
-| drag       | true / false            | Enable / Disable dragging             |
-| dragspeed  | number (integer)        | Speed of dragging animation           |
-| duration   | number (seconds)        | Duration of arrows /dots animation    |
+| Syntax     | Values                  | Description                                       |
+| ---------- | ----------------------- | ------------------------------------------------- |
+| loop       | true / false            | Boolean toggle, slider looping or not             |
+| mode       | snap / free / free-snap | Slider snapping                                   |
+| rubberband | true / false            | rubberband animation or not                       |
+| drag       | true / false            | Enable / Disable dragging                         |
+| dragspeed  | number (integer)        | Speed of dragging animation                       |
+| duration   | number (seconds)        | Duration of arrows /dots animation                |
+| centered   | true / false            | Slides align to left or center                    |
+| perview    | number / null           | Slides visible per view, if empty is based on CSS |

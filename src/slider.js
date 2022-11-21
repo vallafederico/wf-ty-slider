@@ -18,25 +18,48 @@ export default class {
     // CONVERT
     if (this.element.dataset.duration) this.element.dataset.duration *= 1000;
 
+    /* TODO: rework function boolean conversion */
+    const loop = evalStr(this.element.dataset.loop);
+    const rubberband = evalStr(this.element.dataset.rubberband);
+    const drag = evalStr(this.element.dataset.drag);
+    const centered = evalStr(this.element.dataset.centered);
+    const perview = () => {
+      const { perview } = this.element.dataset;
+      if (perview === undefined || perview === "0") {
+        return "auto";
+      } else {
+        return Number(perview);
+      }
+    };
+    const spacing = () => {
+      const { spacing } = this.element.dataset;
+      if (spacing === undefined || spacing === "0") {
+        return 0;
+      } else {
+        return Number(spacing);
+      }
+    };
+
     this.config = {
       // *** slider
-      loop: Function(this.element.dataset.loop) || false, // -- out
-      mode: this.element.dataset.mode || "free-snap", // -- out
+      loop: loop, // --> out
+      mode: this.element.dataset.mode || "free-snap", // --> out
       renderMode: "precision",
-      rubberband: Function(this.element.dataset.rubberband) || false, // -- out
+      rubberband: rubberband, // --> out
       // *** drag
-      drag: Function(this.element.dataset.drag) || true, // -- out
-      dragSpeed: +this.element.dataset.rubberband || 1, // -- out
+      drag: drag, // --> out
+      dragSpeed: +this.element.dataset.rubberband || 1, // --> out
       // *** animation
       defaultAnimation: {
-        duration: +this.element.dataset.duration || 100, // -- out
+        duration: +this.element.dataset.duration || 100, // --> out
         // easing: () => {},
       },
       // *** slides
       initial: 0,
       slides: {
-        origin: "auto",
-        perView: "auto",
+        origin: centered ? "center" : "auto", // --> out
+        perView: perview(), // --> out
+        spacing: spacing(), // --> out
       },
       range: {
         // align: false,
@@ -51,10 +74,10 @@ export default class {
     this.slider = new KeenSlider(this.element, {
       // * INTERNAL config
       selector: () => [...this.element.children],
-      slides: {
-        perView: "auto",
-        // spacing: 0,
-      },
+      //   slides: {
+      //     perView: "auto",
+      //     // spacing: 0,
+      //   },
       ...this.config,
     });
 
@@ -154,4 +177,8 @@ export default class {
     if (rel === 0) console.log("edge left");
     if (rel === this.slider.slides.length) console.log("edge right");
   }
+}
+
+function evalStr(str) {
+  return str === "true";
 }

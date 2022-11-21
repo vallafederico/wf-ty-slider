@@ -580,20 +580,41 @@
     config(config) {
       if (this.element.dataset.duration)
         this.element.dataset.duration *= 1e3;
+      const loop = evalStr(this.element.dataset.loop);
+      const rubberband = evalStr(this.element.dataset.rubberband);
+      const drag = evalStr(this.element.dataset.drag);
+      const centered = evalStr(this.element.dataset.centered);
+      const perview = () => {
+        const { perview: perview2 } = this.element.dataset;
+        if (perview2 === void 0 || perview2 === "0") {
+          return "auto";
+        } else {
+          return Number(perview2);
+        }
+      };
+      const spacing = () => {
+        const { spacing: spacing2 } = this.element.dataset;
+        if (spacing2 === void 0 || spacing2 === "0") {
+          return 0;
+        } else {
+          return Number(spacing2);
+        }
+      };
       this.config = {
-        loop: Function(this.element.dataset.loop) || false,
+        loop,
         mode: this.element.dataset.mode || "free-snap",
         renderMode: "precision",
-        rubberband: Function(this.element.dataset.rubberband) || false,
-        drag: Function(this.element.dataset.drag) || true,
+        rubberband,
+        drag,
         dragSpeed: +this.element.dataset.rubberband || 1,
         defaultAnimation: {
           duration: +this.element.dataset.duration || 100
         },
         initial: 0,
         slides: {
-          origin: "auto",
-          perView: "auto"
+          origin: centered ? "center" : "auto",
+          perView: perview(),
+          spacing: spacing()
         },
         range: {},
         ...config
@@ -603,9 +624,6 @@
     init() {
       this.slider = new y(this.element, {
         selector: () => [...this.element.children],
-        slides: {
-          perView: "auto"
-        },
         ...this.config
       });
       this.initDom();
@@ -676,6 +694,9 @@
         console.log("edge right");
     }
   };
+  function evalStr(str) {
+    return str === "true";
+  }
 
   // src/app.js
   var el = document.querySelector("[data-slider='wrapper']");
