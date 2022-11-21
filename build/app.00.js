@@ -566,24 +566,118 @@
   };
 
   // src/slider.js
-  var slider_default = class extends y {
-    constructor(element, config = {}) {
-      super(element, {
-        loop: false,
-        mode: "free-snap",
-        selector: () => [...element.children],
+  var slider_default = class {
+    constructor(wrapper, config = {}) {
+      this.wrapper = wrapper;
+      this.element = wrapper.querySelector('[data-slider="container"]');
+      this.config(config);
+      this.ui = {
+        dots: [],
+        current: 0
+      };
+      this.init();
+    }
+    config(config) {
+      if (this.element.dataset.duration)
+        this.element.dataset.duration *= 1e3;
+      this.config = {
+        loop: Function(this.element.dataset.loop) || false,
+        mode: this.element.dataset.mode || "free-snap",
+        renderMode: "precision",
+        rubberband: Function(this.element.dataset.rubberband) || false,
+        drag: Function(this.element.dataset.drag) || true,
+        dragSpeed: +this.element.dataset.rubberband || 1,
+        defaultAnimation: {
+          duration: +this.element.dataset.duration || 100
+        },
+        initial: 0,
+        slides: {
+          origin: "auto",
+          perView: "auto"
+        },
+        range: {},
+        ...config
+      };
+      console.log("-- config ", this.config);
+    }
+    init() {
+      this.slider = new y(this.element, {
+        selector: () => [...this.element.children],
         slides: {
           perView: "auto"
-        }
+        },
+        ...this.config
       });
-      this.options.defaultAnimation = {
-        duration: 1e3
-      };
-      console.log("SLIDER", this.options);
+      this.initDom();
+      this.slider.on("slideChanged", this.update.bind(this));
+    }
+    initDom() {
+      const arrowLeft = this.wrapper.querySelector('[data-slider="left"]');
+      const arrowRight = this.wrapper.querySelector('[data-slider="right"]');
+      if (arrowLeft || arrowRight)
+        this.createArrows(arrowLeft, arrowRight);
+      const dotsWrapper = this.wrapper.querySelector('[data-slider="dots"]');
+      if (dotsWrapper)
+        this.createDots(dotsWrapper);
+      this.onStart(0);
+    }
+    createArrows(left, right) {
+      this.ui.hasArrows = true;
+      if (left)
+        left.onclick = () => this.slider.prev();
+      if (right)
+        right.onclick = () => this.slider.next();
+    }
+    createDots(wrapper) {
+      this.ui.hasDots = true;
+      const children = [...wrapper.children];
+      if (children.length < 1)
+        return;
+      const activeDot = wrapper.querySelector(".active");
+      if (!activeDot)
+        return;
+      const dot = activeDot.cloneNode(true);
+      dot.classList.remove("active");
+      children.forEach((child) => child.remove());
+      this.slider.slides.forEach((slide, i2) => {
+        const newDot = dot.cloneNode(true);
+        newDot.onclick = () => this.slider.moveToIdx(i2);
+        this.ui.dots.push(newDot);
+        wrapper.appendChild(newDot);
+      });
+    }
+    onStart(rel) {
+      this.ui.dots[rel].classList.add("active");
+      this.ui.current = rel;
+    }
+    update(e2 = 0) {
+      const rel = typeof e2 === "number" ? e2 : e2.track.details.rel;
+      this.updateDots(rel);
+      this.updateSlides(rel);
+      this.updateArrows(rel);
+      this.ui.current = rel;
+    }
+    updateSlides(rel) {
+      this.slider.slides[this.ui.current].classList.remove("active");
+      this.slider.slides[rel].classList.add("active");
+    }
+    updateDots(rel) {
+      if (!this.ui.hasDots)
+        return;
+      this.ui.dots[this.ui.current].classList.remove("active");
+      this.ui.dots[rel].classList.add("active");
+    }
+    updateArrows(rel) {
+      if (!this.ui.hasArrows)
+        return;
+      if (rel === 0)
+        console.log("edge left");
+      if (rel === this.slider.slides.length)
+        console.log("edge right");
     }
   };
 
   // src/app.js
-  var el = document.querySelector("[data-slider='container']");
+  var el = document.querySelector("[data-slider='wrapper']");
   window.slider = new slider_default(el);
 })();

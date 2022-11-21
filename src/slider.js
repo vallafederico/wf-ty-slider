@@ -15,29 +15,29 @@ export default class {
   }
 
   config(config) {
-    // -> from attributes
-    // console.log(this.element);
-
-    console.log(this.element.dataset);
-    // console.log(eval(this.element.dataset.loop));
-    // console.log(this.element.dataset.mode);
+    // CONVERT
+    if (this.element.dataset.duration) this.element.dataset.duration *= 1000;
 
     this.config = {
-      // slider
-      loop: false, // out
-      mode: "free-snap", // out
+      // *** slider
+      loop: Function(this.element.dataset.loop) || false, // -- out
+      mode: this.element.dataset.mode || "free-snap", // -- out
       renderMode: "precision",
-      rubberband: true, // out
-      // drag
-      drag: true, // out
-      dragSpeed: 1, // out
-      // animation
+      rubberband: Function(this.element.dataset.rubberband) || false, // -- out
+      // *** drag
+      drag: Function(this.element.dataset.drag) || true, // -- out
+      dragSpeed: +this.element.dataset.rubberband || 1, // -- out
+      // *** animation
       defaultAnimation: {
-        duration: 1000, // out
+        duration: +this.element.dataset.duration || 100, // -- out
         // easing: () => {},
       },
-      // slides
+      // *** slides
       initial: 0,
+      slides: {
+        origin: "auto",
+        perView: "auto",
+      },
       range: {
         // align: false,
       },
