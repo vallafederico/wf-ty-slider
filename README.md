@@ -6,9 +6,11 @@ Based on [Keen Slider](https://github.com/rcbyr/keen-slider)
 
 - [ ]
 
-#### Config
+### Config
 
-| Syntax    | Description |
-| --------- | ----------- |
-| Header    | Title       |
-| Paragraph | Text        |
+##### Slider
+
+| Syntax | Values                  | Description                           |
+| ------ | ----------------------- | ------------------------------------- |
+| loop   | true / false            | Boolean toggle, slider looping or not |
+| mode   | snap / free / free-snap | Slider snapping                       |
