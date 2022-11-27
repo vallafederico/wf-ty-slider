@@ -33,3 +33,42 @@ Added as attributes to the container element (`data-slider="container"`).
 | centered   | true / false            | Slides align to left or center                           | -        |
 | perview    | number / 0              | Slides visible per view, if empty or "0" is based on CSS | Optional |
 | spacing    | number                  | Slide spacing, like flexbox gap                          | Optional |
+
+##### Other Initialization methods
+
+By Just pasting the script all the slider with the correct wrapper class on the page start up.
+Every slider recieves customization from the attributes attached to the container.
+
+For further customization you can add an attribute on the script `data-no-init`.
+
+```html
+<script data-no-init src="{SLIDER CDN REFERENCE SCRIPT}"></script>
+```
+
+This way the slider will not automatically initialize, and you'll be able to specify any parameters manually from the (Keen Slider Docs)[https://keen-slider.io/docs].
+
+An example configuration in Webflow might look something like this. This code should be in the custom code section, before /body tag.
+
+```html
+<script data-no-init src="http://localhost:8000/dev.js"></script>
+<script>
+  // get the slider from the window object
+  const { Slider } = window;
+
+  // get all the reference, can also be custom names
+  const wrappers = [...document.querySelectorAll("[data-slider='wrapper']")];
+
+  // init the second slider (second element in the array
+  // this ones inits with values specified as attributes
+  const secondSlider = new Slider(wrappers[1]);
+
+  // init the first slider with fully customizable options
+  // custom parameters take precedence on attributes
+  const firstSlider = new Slider(wrappers[0], {
+    loop: false,
+    created: () => {
+      console.log("created");
+    },
+  });
+</script>
+```

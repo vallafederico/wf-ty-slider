@@ -1,4 +1,5 @@
 import KeenSlider from "keen-slider";
+import { easeOutExpo, easeOutBack } from "./easings";
 
 export default class {
   constructor(wrapper, config = {}) {
@@ -39,6 +40,9 @@ export default class {
         return Number(spacing);
       }
     };
+    // const easing = () => {
+    //   return null;
+    // };
 
     this.config = {
       // *** slider
@@ -52,7 +56,7 @@ export default class {
       // *** animation
       defaultAnimation: {
         duration: +this.element.dataset.duration || 100, // --> out
-        // easing: () => {},
+        // easing: easeOutBack,
       },
       // *** slides
       initial: 0,
@@ -67,7 +71,7 @@ export default class {
       ...config, // INIT config takes precedence
     };
 
-    console.log("-- config ", this.config);
+    console.log("Slider Configuration: ", this.config);
   }
 
   init() {
@@ -174,8 +178,8 @@ export default class {
 
   updateArrows(rel) {
     if (!this.ui.hasArrows) return;
-    if (rel === 0) console.log("edge left");
-    if (rel === this.slider.slides.length) console.log("edge right");
+    // if (rel === 0) console.log("edge left");
+    // if (rel === this.slider.slides.length) console.log("edge right");
   }
 }
 

@@ -1,7 +1,10 @@
 import Slider from "./slider";
 
-// slider -> data-slider
-const el = document.querySelector("[data-slider='wrapper']");
-window.slider = new Slider(el);
+// slider -> init
+const initAttribute = document.querySelector("[data-no-init]");
+if (!initAttribute) {
+  const el = [...document.querySelectorAll("[data-slider='wrapper']")];
+  el.forEach((wrapper) => new Slider(wrapper));
+}
 
-// console.log(window.slider);
+window.Slider = Slider;
