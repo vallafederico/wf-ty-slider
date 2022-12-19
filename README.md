@@ -79,7 +79,7 @@ An example configuration in Webflow might look something like this. This code sh
 
 Solves the need of having NON cms based element inde the slider.
 
-**Inside** the `data-slider="wrapper"` add a the slide that needs to be inserted, add a div with the attribute `data-add-slide`. The value can be `end` or `start`, and sets in which position the slide is inserted (as last slide, as first slide).
+**Inside** the `data-slider="wrapper"` add a the slide that needs to be inserted. The additional slide container needs the attribute `data-add-slide`. The value can be `end` or `start`, and sets in which position the slide is inserted (as last slide, as first slide).
 
 ```js
 data-add-slide="end"
