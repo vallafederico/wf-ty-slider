@@ -22,17 +22,17 @@ Optionally, you can define arrows and dots. All this attributes and elements sho
 
 Added as attributes to the container element (`data-slider="container"`).
 
-| Syntax     | Values                  | Description                                              | Optional |
-| ---------- | ----------------------- | -------------------------------------------------------- | -------- |
-| loop       | true / false            | Boolean toggle, slider looping or not                    | -        |
-| mode       | snap / free / free-snap | Slider snapping                                          | -        |
-| rubberband | true / false            | rubberband animation or not                              | -        |
-| drag       | true / false            | Enable / Disable dragging                                | -        |
-| dragspeed  | number (integer)        | Speed of dragging animation                              | -        |
-| duration   | number (seconds)        | Duration of arrows /dots animation                       | -        |
-| centered   | true / false            | Slides align to left or center                           | -        |
-| perview    | number / 0              | Slides visible per view, if empty or "0" is based on CSS | Optional |
-| spacing    | number                  | Slide spacing, like flexbox gap                          | Optional |
+| Syntax     | Values                  | Description                                              | Optional | Defaults  |
+| ---------- | ----------------------- | -------------------------------------------------------- | -------- | --------- |
+| loop       | true / false            | Boolean toggle, slider looping or not                    | -        | false     |
+| mode       | snap / free / free-snap | Slider snapping                                          | -        | free-snap |
+| rubberband | true / false            | rubberband animation or not                              | -        | false     |
+| drag       | true / false            | Enable / Disable dragging                                | -        | true      |
+| dragspeed  | number (integer)        | Speed of dragging animation                              | -        | -         |
+| duration   | number (seconds)        | Duration of arrows /dots animation                       | -        | -         |
+| centered   | true / false            | Slides align to left or center                           | -        | -         |
+| perview    | number / 0              | Slides visible per view, if empty or "0" is based on CSS | Optional | -         |
+| spacing    | number                  | Slide spacing, like flexbox gap                          | Optional | -         |
 
 ### Other Initialization methods
 
@@ -71,4 +71,17 @@ An example configuration in Webflow might look something like this. This code sh
     },
   });
 </script>
+```
+
+### CMS Slider features
+
+#### Non CMS Slide Add
+
+Solves the need of having NON cms based element inde the slider.
+
+**Inside** the `data-slider="wrapper"` add a the slide that needs to be inserted, add a div with the attribute `data-add-slide`. The value can be `end` or `start`, and sets in which position the slide is inserted (as last slide, as first slide).
+
+```js
+data-add-slide="end"
+data-add-slide="start"
 ```

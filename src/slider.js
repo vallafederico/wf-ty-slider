@@ -1,5 +1,6 @@
 import KeenSlider from "keen-slider";
 import { easeOutExpo, easeOutBack } from "./easings";
+import { insertItem } from "./insertItem";
 
 export default class {
   constructor(wrapper, config = {}) {
@@ -11,6 +12,10 @@ export default class {
       dots: [],
       current: 0,
     };
+
+    /* Plugins
+     */
+    insertItem(this.wrapper, this.element);
 
     this.init();
   }
@@ -51,7 +56,7 @@ export default class {
       renderMode: "precision",
       rubberband: rubberband, // --> out
       // *** drag
-      drag: drag, // --> out
+      drag: drag || true, // --> out
       dragSpeed: +this.element.dataset.rubberband || 1, // --> out
       // *** animation
       defaultAnimation: {
@@ -87,8 +92,6 @@ export default class {
 
     this.initDom();
     this.slider.on("slideChanged", this.update.bind(this));
-
-    // console.log(this.slider.slides.length);
   }
 
   /**
@@ -136,12 +139,12 @@ export default class {
 
       this.ui.dots.push(newDot);
       wrapper.appendChild(newDot);
-
-      //   console.log(i);
     });
 
     // * check
     // console.log("dots", this.ui.dots);
+
+    this.update(0);
   }
 
   /**
@@ -149,7 +152,7 @@ export default class {
    */
 
   onStart(rel) {
-    this.ui.dots[rel].classList.add("active");
+    if (this.ui.hasDots) this.ui.dots[rel].classList.add("active");
     this.ui.current = rel;
     // this.updateArrows(rel);
   }
